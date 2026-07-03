@@ -1,4 +1,5 @@
 import { Router, Request, Response, NextFunction } from "express";
+import { validationFailed } from "../lib/errors";
 
 const router = Router();
 
@@ -29,7 +30,7 @@ function validateCreateUser(req: Request, res: Response, next: NextFunction): vo
   }
 
   if (errors.length > 0) {
-    res.status(422).json({ errors, message: "Validation failed." });
+    validationFailed(res, errors);
     return;
   }
 
